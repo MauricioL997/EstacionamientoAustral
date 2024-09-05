@@ -1,0 +1,42 @@
+<div class="bobycochera">
+    <header>
+        <h1>{{titulo}}</h1>
+        <p>Estado de Cocheras</p>
+        <div>
+            <a [routerLink]="['/login']">Cerrar Sesión</a>
+        </div>
+        <a [routerLink]="['/adminCochera']">
+            <img src="/eladmin.jpeg" alt="Administrar Cocheras" id="logoadmin">
+        </a>
+    </header>
+    @if (cocheras.length !==0){
+            <table>
+                
+                <thead>
+                    <th>Cochera</th>
+                    <th>Disponibilidad</th>
+                    <th>Ingreso</th>
+                    <th>Acciones</th>
+                </thead>
+                <tbody>
+                    @for(cochera of cocheras; track $index) {
+                    <tr> 
+                        <td>{{cochera.numero}}</td>
+                        <td>{{cochera.disponible}}</td>
+                        <td>{{cochera.ingreso}}</td>
+                        <td>
+                            <button (click)="toggleDisponibilidad($index)"> Modificar</button>
+                            <button (click)="borrarCochera($index)"> Borrar</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        @else {
+            <button (click)="agregarCochera()" class="AloneBoton">Agregar Cochera</button>
+        }
+<button (click)="actualizarCocheras()">Borrar todo</button>
+<button (click)="agregarCochera()">Agregar Cochera</button>
+  
+

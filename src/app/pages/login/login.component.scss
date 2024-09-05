@@ -1,0 +1,71 @@
+main {
+    background-image: url('../../../../public/frame-3302911_1920.jpg');
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 60px;
+    font-weight: bold;
+    text-shadow: 3px 3px 7px rgb(0, 0, 0); 
+    margin-bottom: 100px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    background: rgba(0, 0, 0, 0.5); 
+    padding: 7px; 
+    border-radius: 10px; 
+    text-align: center;
+}
+
+form {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+input[type="User"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px ;
+    cursor: pointer;
+}
+.Botones{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 20px;
+
+}
+.Botones a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0051ff;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.Botones a:hover {
+    background-color: #0056b3;
+}
+.menumargen {
+    background: rgba(0, 0, 0, 0.5); 
+    border: 3px solid rgba(255, 255, 255, 0.8); 
+    border-radius: 15px; 
+    padding: 20px;
+    box-sizing: border-box; 
+    color: white; 
+    max-width: 500px; 
+    margin: 0 auto; 
+}
+a ,p {
+    text-decoration: none;
+    font-size: large
+ }
+
