@@ -1,0 +1,60 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 32px;
+    margin: 0;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  p {
+    font-size: 17px;
+    margin: 0;
+    color: #777;
+  }
+  
+  #logoadmin {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .bobycochera {
+    font-family: 'Lato', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fefefe;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  header a {
+    text-decoration: none;
+    font-size: 20px;
+    color: #16a2a7;
+    font-weight: bold;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+  }
+  
+  header a:last-child {
+    margin-right: 0;
+  }
+  
+  header a:hover {
+    color: #1d9b9b;
+  }
+  

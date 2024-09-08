@@ -1,14 +1,15 @@
 <div class="bobycochera">
     <header>
         <h1>{{titulo}}</h1>
-        <p>Estado de Cocheras</p>
-        <div>
-            <a [routerLink]="['/login']">Cerrar Sesión</a>
-        </div>
-        <a [routerLink]="['/adminCochera']">
+
+            <a [routerLink]="['/EstadoCochera']">Estado de Cocheras</a>
+            <a [routerLink]="['/reporte']" *ngIf="isAdmin">Reporte</a>
+            <a [routerLink]="['/precios']"*ngIf="isAdmin">Precios</a>
+        <a (click)="toggleAdmin()">
             <img src="/eladmin.jpeg" alt="Administrar Cocheras" id="logoadmin">
         </a>
     </header>
+<ng-container >
     @if (cocheras.length !==0){
             <table>
                 
@@ -22,7 +23,7 @@
                     @for(cochera of cocheras; track $index) {
                     <tr> 
                         <td>{{cochera.numero}}</td>
-                        <td>{{cochera.disponible}}</td>
+                        <td [ngClass]="cochera.disponible">{{cochera.disponible}}</td>
                         <td>{{cochera.ingreso}}</td>
                         <td>
                             <button (click)="toggleDisponibilidad($index)"> Modificar</button>
@@ -32,11 +33,17 @@
                 }
                 </tbody>
             </table>
+            <div class="botonPruebas" *ngIf="isAdmin">
+                <button (click)="agregarCochera()">Agregar Cochera</button>
+              </div>
         }
-        @else {
-            <button (click)="agregarCochera()" class="AloneBoton">Agregar Cochera</button>
+        
+    @else {
+        <div class="botonPruebas" *ngIf="isAdmin">
+            <button (click)="agregarCochera()">Agregar Cochera</button>
+          </div>
         }
-<button (click)="actualizarCocheras()">Borrar todo</button>
-<button (click)="agregarCochera()">Agregar Cochera</button>
-  
+    <div class="logout">
+    <a [routerLink]="['/login']" >Cerrar Sesión</a>
+    </div>
 

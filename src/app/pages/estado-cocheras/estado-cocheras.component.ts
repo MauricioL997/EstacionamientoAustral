@@ -1,24 +1,27 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Cocheras } from '../../interfaces/cochera';
+import { CommonModule, NgClass } from '@angular/common';
 
 
 @Component({
   selector: 'app-estado-cocheras',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,NgClass,CommonModule],
   templateUrl: './estado-cocheras.component.html',
   styleUrl: './estado-cocheras.component.scss'
 })
 export class EstadoCocherasComponent {
-  titulo:string = "Estado cocheras";
+  titulo:string = "Parking App";
 
   cocheras:Cocheras[] = []
-  actualizarCocheras() {
-    this.cocheras = []
-    }
+
   ultimoNumero = this.cocheras[this.cocheras.length-1]?.numero || 0;
 
+  isAdmin: boolean = false;
+  toggleAdmin() {
+    this.isAdmin = !this.isAdmin;
+  }
   agregarCochera(){
     this.cocheras.push({
       numero: this.ultimoNumero + 1,
@@ -30,7 +33,7 @@ export class EstadoCocherasComponent {
   }
   toggleDisponibilidad(index: number){
   if(this.cocheras[index].disponible ==="disponible") {
-    this.cocheras[index].disponible="desabilitada";
+    this.cocheras[index].disponible="deshabilitada";
   } else {
     this.cocheras[index].disponible="disponible";
   }
@@ -38,4 +41,6 @@ export class EstadoCocherasComponent {
 borrarCochera(index : number){
   this.cocheras.splice(index,1);
 }
+
+
 }
