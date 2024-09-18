@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CommonModule, NgClass } from '@angular/common';
 import { DataCocherasService } from '../../services/data-cocheras.service'; // Importa el servicio
@@ -13,29 +13,39 @@ import { DataCocherasService } from '../../services/data-cocheras.service'; // I
 export class EstadoCocherasComponent {
   titulo: string = "Parking App";
 
-  @Input() isAdmin: boolean = false;
+  isAdmin: boolean = true;
 
-  // Inyecta el servicio utilizando 'inject()'
   dataCocherasService = inject(DataCocherasService);
+  authService: any;
 
-  constructor(private router: Router) {} // Inyecta el Router
-  // Usar el servicio para agregar una cochera
+  constructor(private router: Router) {} 
   agregarCochera() {
     this.dataCocherasService.agregarCochera();
   }
 
-  // Usar el servicio para alternar la disponibilidad
   toggleDisponibilidad(index: number) {
     this.dataCocherasService.toggleDisponibilidad(index);
   }
 
-  // Usar el servicio para confirmar y borrar una cochera
   confirmDeleteCochera(index: number) {
     this.dataCocherasService.confirmDeleteCochera(index);
   }
 
-  // Usar el servicio para cerrar sesión con confirmación
   confirmLogout(event: Event) {
     this.dataCocherasService.confirmLogout(event);
   }
+ async getCocheras(){
+    const res = await fetch('http://Localhost:4000/cochera',{
+      headers:{
+        authorization: 'Bearer '+this.authService.usuario?.token
+      }
+    })
+  if (res.status !==200) return;
+  //const resJson:ResLogin = await res.json();
+  //this.router.navigate(['/EstadoCochera'])
 }
+
+}
+
+
+

@@ -1,7 +1,7 @@
 export interface Cocheras{
-    numero: number;
-    disponible:string,
-    ingreso:string
-    esGrande: boolean
+    id: number;
+    descripcion:string,
+    deshabilitada:number
+    eliminada: boolean
 
 }

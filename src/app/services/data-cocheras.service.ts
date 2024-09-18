@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router'; // Importa Router
 import { Cocheras } from '../interfaces/cochera';
 import Swal from 'sweetalert2';
@@ -11,19 +11,22 @@ export class DataCocherasService {
   cocheras: Cocheras[] = [];
 
   ultimoNumero = this.cocheras[this.cocheras.length - 1]?.numero || 0;
+  authService: Inject(Data);
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.getCocheras()
+  }
 
 
 
   agregarCochera() {
     this.cocheras.push({
-      numero: this.ultimoNumero + 1,
+      id: this.ultimoNumero + 1,
       disponible: "disponible",
       ingreso: "-",
       esGrande: true
     });
-    this.ultimoNumero++;
+    this.ultimoNumero++; 
   }
 
   toggleDisponibilidad(index: number) {
@@ -79,4 +82,15 @@ export class DataCocherasService {
       }
     });
   }
+  async getCocheras(){
+    const res = await fetch('http://Localhost:4000/cochera',{
+      headers:{
+        authorization: 'Bearer '+this.authService.usuario?.token
+      }
+    })
+  if (res.status !==200) return;
+  const resJson:Cocheras[] = await res.json();
+  this.cocheras=resJson;
+  //this.router.navigate(['/EstadoCochera'])
+}
 }
