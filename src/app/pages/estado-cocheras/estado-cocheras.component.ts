@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
-import { Cocheras } from '../../interfaces/cochera';
 import { CommonModule, NgClass } from '@angular/common';
 import { DataCocherasService } from '../../services/data-cocheras.service'; // Importa el servicio
 
@@ -13,11 +12,8 @@ import { DataCocherasService } from '../../services/data-cocheras.service'; // I
 })
 export class EstadoCocherasComponent {
   titulo: string = "Parking App";
-  cocheras: Cocheras[] = [];
-  isAdmin: boolean = false;
-  toggleAdmin() {
-    this.isAdmin = !this.isAdmin;
-  }
+
+  @Input() isAdmin: boolean = false;
 
   // Inyecta el servicio utilizando 'inject()'
   dataCocherasService = inject(DataCocherasService);

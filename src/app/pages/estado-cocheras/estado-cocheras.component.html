@@ -1,9 +1,7 @@
-<div class="bobycochera">
-
-<ng-container >
-    @if (cocheras.length !==0){
+<div class="bobycochera">    
+    <ng-container>
+        @if (dataCocherasService.cocheras.length !== 0) {
             <table>
-                
                 <thead>
                     <th>Cochera</th>
                     <th>Disponibilidad</th>
@@ -11,31 +9,30 @@
                     <th>Acciones</th>
                 </thead>
                 <tbody>
-                    @for(cochera of cocheras; track $index) {
-                    <tr> 
-                        <td>{{cochera.numero}}</td>
-                        <td [ngClass]="cochera.disponible">{{cochera.disponible}}</td>
-                        <td>{{cochera.ingreso}}</td>
-                        <td>
-                            <button (click)="toggleDisponibilidad($index)"> Modificar</button>
-                            <button (click)="confirmDeleteCochera($index)">Borrar</button>
-                        </td>
-                    </tr>
-                }
+                    @for(cochera of dataCocherasService.cocheras; track $index) {
+                        <tr>
+                            <td>{{cochera.numero}}</td>
+                            <td [ngClass]="cochera.disponible">{{cochera.disponible}}</td>
+                            <td>{{cochera.ingreso}}</td>
+                            <td>
+                                <button (click)="toggleDisponibilidad($index)">Modificar</button>
+                                <button (click)="confirmDeleteCochera($index)">Borrar</button>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
             <div class="botonPruebas" *ngIf="isAdmin">
                 <button (click)="agregarCochera()">Agregar Cochera</button>
-              </div>
+            </div>
         }
-        
-    @else {
-        <div class="botonPruebas" >
-            <button (click)="agregarCochera()">Agregar Cochera</button>
-          </div>
+        @else {
+            <div class="botonPruebas">
+                <button (click)="agregarCochera()">Agregar Cochera</button>
+            </div>
         }
         <div class="logout">
             <a (click)="confirmLogout($event)">Cerrar Sesión</a>
-          </div>
-          
-
+        </div>
+    </ng-container>
+</div> 
