@@ -1,14 +1,5 @@
 <div class="bobycochera">
-    <header>
-        <h1>{{titulo}}</h1>
 
-            <a [routerLink]="['/EstadoCochera']">Estado de Cocheras</a>
-            <a [routerLink]="['/reporte']" *ngIf="isAdmin">Reporte</a>
-            <a [routerLink]="['/precios']"*ngIf="isAdmin">Precios</a>
-        <a (click)="toggleAdmin()">
-            <img src="/eladmin.jpeg" alt="Administrar Cocheras" id="logoadmin">
-        </a>
-    </header>
 <ng-container >
     @if (cocheras.length !==0){
             <table>
@@ -27,7 +18,7 @@
                         <td>{{cochera.ingreso}}</td>
                         <td>
                             <button (click)="toggleDisponibilidad($index)"> Modificar</button>
-                            <button (click)="borrarCochera($index)"> Borrar</button>
+                            <button (click)="confirmDeleteCochera($index)">Borrar</button>
                         </td>
                     </tr>
                 }
@@ -39,11 +30,12 @@
         }
         
     @else {
-        <div class="botonPruebas" *ngIf="isAdmin">
+        <div class="botonPruebas" >
             <button (click)="agregarCochera()">Agregar Cochera</button>
           </div>
         }
-    <div class="logout">
-    <a [routerLink]="['/login']" >Cerrar Sesión</a>
-    </div>
+        <div class="logout">
+            <a (click)="confirmLogout($event)">Cerrar Sesión</a>
+          </div>
+          
 
