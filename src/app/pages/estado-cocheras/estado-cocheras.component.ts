@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CommonModule, NgClass } from '@angular/common';
 import { DataCocherasService } from '../../services/data-cocheras.service'; // Importa el servicio
+import { DataAuthService } from '../../services/data-auth.service';
 
 @Component({
   selector: 'app-estado-cocheras',
@@ -11,12 +12,12 @@ import { DataCocherasService } from '../../services/data-cocheras.service'; // I
   styleUrl: './estado-cocheras.component.scss'
 })
 export class EstadoCocherasComponent {
+  authService = inject(DataAuthService);
   titulo: string = "Parking App";
 
   isAdmin: boolean = true;
 
   dataCocherasService = inject(DataCocherasService);
-  authService: any;
 
   constructor(private router: Router) {} 
   agregarCochera() {
@@ -34,16 +35,6 @@ export class EstadoCocherasComponent {
   confirmLogout(event: Event) {
     this.dataCocherasService.confirmLogout(event);
   }
- async getCocheras(){
-    const res = await fetch('http://Localhost:4000/cochera',{
-      headers:{
-        authorization: 'Bearer '+this.authService.usuario?.token
-      }
-    })
-  if (res.status !==200) return;
-  //const resJson:ResLogin = await res.json();
-  //this.router.navigate(['/EstadoCochera'])
-}
 
 }
 

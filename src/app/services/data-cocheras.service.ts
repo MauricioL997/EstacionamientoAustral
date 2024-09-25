@@ -1,39 +1,50 @@
-import { Inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router'; // Importa Router
-import { Cocheras } from '../interfaces/cochera';
+import { inject, Injectable } from '@angular/core';
+import { Cochera } from '../interfaces/cochera';
 import Swal from 'sweetalert2';
+import { DataAuthService } from './data-auth.service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataCocherasService {
-  cocheras: Cocheras[] = [];
+  cocheras: Cochera[] = [];
+  authService = inject(DataAuthService);
 
-  ultimoNumero = this.cocheras[this.cocheras.length - 1]?.numero || 0;
-  authService: Inject(Data);
+  router= inject(Router);
 
-  constructor(private router: Router) {
+  constructor() {
     this.getCocheras()
   }
 
+  async getCocheras(){
+    const res = await fetch('http://localhost:4000/cocheras',{
+      headers: {
+        authorization:'Bearer '+this.authService.usuario?.token
+      },
+    })
+    if(res.status !== 200) return;
+    const resJson:Cochera[] = await res.json();
+    this.cocheras = resJson;
+  }
 
-
+  ultimoNumero = this.cocheras[this.cocheras.length - 1]?.id || 0;
   agregarCochera() {
     this.cocheras.push({
       id: this.ultimoNumero + 1,
-      disponible: "disponible",
-      ingreso: "-",
-      esGrande: true
+      descripcion: "-",
+      deshabilitada: 0,
+      eliminada: 0
     });
     this.ultimoNumero++; 
   }
 
   toggleDisponibilidad(index: number) {
-    if (this.cocheras[index].disponible === "disponible") {
-      this.cocheras[index].disponible = "deshabilitada";
+    if (this.cocheras[index].deshabilitada === 1) {
+      this.cocheras[index].deshabilitada = 0;
     } else {
-      this.cocheras[index].disponible = "disponible";
+      this.cocheras[index].deshabilitada = 1;
     }
   }
 
@@ -82,15 +93,4 @@ export class DataCocherasService {
       }
     });
   }
-  async getCocheras(){
-    const res = await fetch('http://Localhost:4000/cochera',{
-      headers:{
-        authorization: 'Bearer '+this.authService.usuario?.token
-      }
-    })
-  if (res.status !==200) return;
-  const resJson:Cocheras[] = await res.json();
-  this.cocheras=resJson;
-  //this.router.navigate(['/EstadoCochera'])
-}
 }

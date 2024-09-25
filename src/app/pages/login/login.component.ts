@@ -35,23 +35,10 @@ export class LoginComponent {
 //  
 //    console.log("despues del fetch")
 //}
+errorLogin = false;
 async login(){
-  const res = await fetch('http://Localhost:4000/login',{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(this.loginData)
-  })
-if (res.status !==200) return;
-const resJson:ResLogin = await res.json();
-if (resJson.token) return;
-this.authService.usuario = {
-  username:  this.loginData.username,
-  token: resJson.token,
-  esAdmin : false
+  const res = await this.authService.login(this.loginData)
+  if(res?.status === "ok") this.router.navigate(['/EstadoCochera']);
+  else this.errorLogin = true;
 }
-this.router.navigate(['/EstadoCochera'])
-}
-
 }

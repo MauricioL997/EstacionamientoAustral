@@ -3,7 +3,7 @@
         @if (dataCocherasService.cocheras.length !== 0) {
             <table>
                 <thead>
-                    <th>Cochera</th>
+                    <th>Nº</th>
                     <th>Disponibilidad</th>
                     <th>Ingreso</th>
                     <th>Acciones</th>
@@ -11,23 +11,23 @@
                 <tbody>
                     @for(cochera of dataCocherasService.cocheras; track $index) {
                         <tr>
-                            <td>{{cochera.numero}}</td>
-                            <td [ngClass]="cochera.disponible">{{cochera.disponible}}</td>
-                            <td>{{cochera.ingreso}}</td>
+                            <td>{{cochera.id}}</td>
+                            <td [ngClass]="{'disponible': !cochera.deshabilitada,'ocupado': cochera.deshabilitada}">{{ !cochera.deshabilitada ? 'Disponible' : 'Ocupado' }}</td>
+                            <td>{{cochera.descripcion}}</td>
                             <td>
                                 <button (click)="toggleDisponibilidad($index)">Modificar</button>
-                                <button (click)="confirmDeleteCochera($index)">Borrar</button>
+                                <button (click)="confirmDeleteCochera($index)" *ngIf="isAdmin">Borrar</button>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-            <div class="botonPruebas" *ngIf="isAdmin">
+            <div class="botonagregar" *ngIf="isAdmin">
                 <button (click)="agregarCochera()">Agregar Cochera</button>
             </div>
         }
         @else {
-            <div class="botonPruebas">
+            <div class="botonagregar">
                 <button (click)="agregarCochera()">Agregar Cochera</button>
             </div>
         }
@@ -36,4 +36,3 @@
         </div>
     </ng-container>
 </div> 
-<button (click)="getCocheras()">aaaaaaaaa</button>

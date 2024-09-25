@@ -24,10 +24,13 @@ export const routes: Routes = [
                     path:"reporte",
                     component:ReporteComponent
                 },
+                {
+                    path:"precios",
+                    component:PreciosComponent
+                },
         ]
 
     },
-   
     {
         path: "login",
         component: LoginComponent
@@ -40,10 +43,6 @@ export const routes: Routes = [
     {
         path:"cerrarcochera",
         component:CerrarCocheraComponent
-    },
-    {
-        path:"precios",
-        component:PreciosComponent
     },
     {
         path:"eliminarcochera",

@@ -40,7 +40,7 @@ input[type="User"], input[type="password"] {
     gap: 20px;
 
 }
-.Botones a {
+.Botones a , button {
     display: inline-block;
     padding: 10px 20px;
     background-color: #0051ff;
@@ -67,5 +67,5 @@ input[type="User"], input[type="password"] {
 a ,p {
     text-decoration: none;
     font-size: large
- }
+}
 

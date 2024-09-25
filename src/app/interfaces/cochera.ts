@@ -1,7 +1,6 @@
-export interface Cocheras{
+export interface Cochera{
     id: number;
-    descripcion:string,
-    deshabilitada:number
-    eliminada: boolean
-
+    descripcion: string;
+    deshabilitada: number;
+    eliminada: number;
 }
