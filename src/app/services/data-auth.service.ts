@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
 import { Login, ResLogin } from '../interfaces/login';
+import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'

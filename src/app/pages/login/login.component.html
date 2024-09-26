@@ -2,15 +2,19 @@
     <h1>Estacionamiento <br>[Nombre]</h1>
     <div class="menumargen">
         <div>
-            <form action="My Login" class="login">
+            <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" class="login">
                 <p>Usuario</p>
-                <input type="User" placeholder="Ingresar Usuario">
-                <input type="password" placeholder="Ingresar Contraseña">
+                <input type="text" name="usuario" ngModel required>
+                <input type="password" name="password" placeholder="Ingresar Contraseña"ngModel required>
+                <div class="Botones">
+                    <button [disabled]="loginForm.invalid" class="botonresaltado" type="submit" >Iniciar Sesion</button>
+                    @if(errorLogin){
+                        <p>Error en login</p>
+                    }
+                    <a [routerLink]="['/register']"> Registrarse</a>
+                </div>
             </form>
         </div>
-        <div class="Botones">
-            <button (click)="login()" class="botonresaltado" type="button" >Iniciar Sesion</button>
-            <a [routerLink]="['/register']"> Registrarse</a>
-        </div>
+
     </div>
 </main>
