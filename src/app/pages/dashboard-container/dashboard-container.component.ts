@@ -11,9 +11,5 @@ import { EstadoCocherasComponent } from '../estado-cocheras/estado-cocheras.comp
   styleUrl: './dashboard-container.component.scss'
 })
 export class DashboardContainerComponent {
-  isAdmin: boolean = false;
-  
-  toggleAdmin() {
-    this.isAdmin = !this.isAdmin;
-  }
+  isAdmin = true
 }

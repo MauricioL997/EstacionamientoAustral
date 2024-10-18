@@ -3,12 +3,12 @@ import { LoginComponent } from './pages/login/login.component';
 import { EstadoCocherasComponent } from './pages/estado-cocheras/estado-cocheras.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { CerrarCocheraComponent } from './pages/cerrar-cochera/cerrar-cochera.component';
 import { PreciosComponent } from './pages/precios/precios.component';
 import { ReporteComponent } from './pages/reporte/reporte.component';
-import { EliminarCocheraComponent } from './pages/eliminar-cochera/eliminar-cochera.component';
 import { DashboardContainerComponent } from './pages/dashboard-container/dashboard-container.component';
-import { soloLogeadoGuard } from './guards/solo-logeado.guard';
+import {soloLogueadoGuard} from './guards/solo-logeado.guard';
+import { soloAdminGuard } from './guards/solo-admin.guard';
+import { soloPublicoGuard } from './guards/solo-publico.guard';
 
 export const routes: Routes = [
     {
@@ -18,24 +18,18 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [soloPublicoGuard]
     },
     {
         path: 'register',
-        component: RegisterComponent
-    },
-    {
-        path: 'cerrarcochera',
-        component: CerrarCocheraComponent
-    },
-    {
-        path: 'eliminarcochera',
-        component: EliminarCocheraComponent
+        component: RegisterComponent,
+        canActivate: [soloPublicoGuard]
     },
     {
         path: '',
         component: DashboardContainerComponent,
-        canActivate: [soloLogeadoGuard],
+        canActivate: [soloLogueadoGuard],
         children: [
             {
                 path: 'EstadoCochera',
@@ -43,7 +37,8 @@ export const routes: Routes = [
             },
             {
                 path: 'reporte',
-                component: ReporteComponent
+                component: ReporteComponent,
+                canActivate: [soloAdminGuard]
             },
             {
                 path: 'precios',

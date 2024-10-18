@@ -47,7 +47,7 @@ export class LoginComponent {
     
     const res = await this.authService.login(loginData)
 
-    if(res?.status === "OK") this.router.navigate(['/estado-cocheras']);
+    if(res?.statusText === "OK") this.router.navigate(['/EstadoCochera']);
     
     else this.errorLogin = true;
   }

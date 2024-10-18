@@ -3,11 +3,10 @@
         <h1>PARKING APP</h1>
         <nav>
             <a [routerLink]="['/EstadoCochera']" routerLinkActive="link-activo">Estado Cocheras</a>
-            <a [routerLink]="['/reporte']" routerLinkActive="link-activo" *ngIf="isAdmin">Reportes</a>
-            <a [routerLink]="['/precios']" routerLinkActive="link-activo" *ngIf="isAdmin">Precios</a>
-            <a (click)="toggleAdmin()">
-                <img src="/eladmin.jpeg" alt="Administrar Cocheras" id="logoadmin">
-            </a>
+            @if(isAdmin){
+                <a [routerLink]="['/reporte']" routerLinkActive="link-activo" >Reportes</a>
+                <a [routerLink]="['/precios']" routerLinkActive="link-activo" >Precios</a>
+            }
         </nav>
     </header>
     <router-outlet/>

@@ -3,9 +3,8 @@
     <div class="menumargen">
         <div>
             <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" class="login">
-                <p>Usuario</p>
-                <input type="text" name="usuario" ngModel placeholder="Ingresar Usuario" required>
-                <input type="password" name="password" placeholder="Ingresar Contraseña"ngModel required>
+                <input type="text" id="username" placeholder="Usuario" name="username" ngModel required>
+            <input type="password" id="password" placeholder="Contraseña" name="password" ngModel required>
                 <div class="Botones">
                     <button [disabled]="loginForm.invalid" class="botonresaltado" type="submit" >Iniciar Sesion</button>
                     @if(errorLogin){
