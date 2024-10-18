@@ -10,89 +10,102 @@ main {
     padding: 15px;
     overflow: hidden;
     box-sizing: border-box;
-}
 
-h1 {
-    font-size: 50px;
-    font-weight: bold;
-    text-shadow: 3px 3px 7px rgb(0, 0, 0);
-    margin-bottom: 35px;
-    font-family: 'Roboto', sans-serif;
-    color: white;
-    background: rgba(0, 0, 0, 0.817);
-    padding: 10px 20px;
-    border-radius: 10px;
-    text-align: center;
-}
+    h1 {
+        color: #fff;
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        background-color: rgba(0, 0, 0, 0.6); // Fondo semi-transparente
+        padding: 10px 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); // Sombra alrededor del título
+    }
 
-.formregistro {
-    display: flex;
-    background: rgba(0, 0, 0, 0.817);
-    border: 3px solid rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    padding: 20px;
-    color: white;
-    max-width: 500px;
-    width: 100%;
-    margin: 0 auto;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 14px;
-}
+    .menumargen {
+        background-color: rgba(0, 0, 0, 0.7); // Fondo oscuro semi-transparente
+        padding: 3rem;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        max-width: 400px;
+        width: 100%;
+        margin-top: 20px;
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-}
+        .formregistro {
+            display: flex;
+            flex-direction: column;
 
-button {
-    padding: 10px 20px;
-    background-color: #0051ff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s ease; /* Transición añadida */
-}
+            p {
+                font-size: 1.2rem;
+                color: #fff;
+                margin-bottom: 0.5rem;
+            }
 
-button:hover {
-    background-color: #003bbd; /* Cambio de color en hover */
-}
+            input {
+                padding: 0.8rem;
+                margin-bottom: 1.5rem;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                font-size: 1rem;
+                background-color: #fff;
+                transition: all 0.3s ease;
 
-p {
-    font-weight: bold;
-    font-size: x-large; 
-    color: rgb(255, 255, 255);
-    text-align: justify;
-    padding: 5px;
-}
+                &:focus {
+                    outline: none;
+                    border-color: #007bff;
+                    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+                }
+            }
 
-#textbot {
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: white;
-    background: rgba(0, 0, 0, 0.817);
-    text-align: center;
-    padding: 15px;
-}
+            .Botones {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
 
-#textbot a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #0051ff;
-    color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
+                button,
+                #textbot {
+                    padding: 0.8rem 2rem;
+                    border-radius: 5px;
+                    font-size: 1rem;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: inline-block;
+                    min-width: 130px;
+                }
 
-#textbot a:hover {
-    background-color: #003bbd; 
+                button {
+                    background-color: #007bff;
+                    border: none;
+                    color: white;
+
+                    &:hover {
+                        background-color: #0056b3;
+                    }
+
+                    &:disabled {
+                        background-color: #6c757d;
+                        cursor: not-allowed;
+                    }
+                }
+
+                #textbot {
+                    color: #ffffff;
+                    background-color: #007bff;
+                    text-decoration: none;
+
+                    &:hover {
+                        background-color: #0056b3;
+                        color: white;
+                    }
+                }
+            }
+
+            p[ngIf="errorRegister"] {
+                color: red;
+                font-size: 0.9rem;
+                margin-top: 10px;
+            }
+        }
+    }
 }

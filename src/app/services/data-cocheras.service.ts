@@ -1,21 +1,26 @@
 import { inject, Injectable } from '@angular/core';
 import { Cochera } from '../interfaces/cochera';
-import Swal from 'sweetalert2';
 import { DataAuthService } from './data-auth.service';
-import { Router } from '@angular/router';
+import { Estacionamiento } from '../interfaces/estacionamiento';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataCocherasService {
-  cocheras: Cochera[] = [];
+  cocheras: Cochera[] = []
+  estacionamientos: Estacionamiento[] = []
   authService = inject(DataAuthService);
-
-  router= inject(Router);
-
+  
   constructor() {
-    this.getCocheras()
+    this.loadData()
+   }
+
+  async loadData() {
+    await this.getCocheras()
+    await this.getEstacionamientos()
+    this.asociarEstacionamientosConCocheras()
   }
 
   async getCocheras(){
@@ -29,68 +34,85 @@ export class DataCocherasService {
     this.cocheras = resJson;
   }
 
-  ultimoNumero = this.cocheras[this.cocheras.length - 1]?.id || 0;
-  agregarCochera() {
-    this.cocheras.push({
-      id: this.ultimoNumero + 1,
-      descripcion: "-",
-      deshabilitada: 0,
-      eliminada: 0
-    });
-    this.ultimoNumero++; 
+  async getEstacionamientos(){
+    const res = await fetch('http://localhost:4000/estacionamientos',{
+      headers: {
+        authorization:'Bearer '+ localStorage.getItem("authToken")
+      },
+    })
+    if(res.status !== 200) return;
+    const resJson: Estacionamiento[] = await res.json();
+    this.estacionamientos = resJson;
+    console.log(this.estacionamientos)
   }
 
-  toggleDisponibilidad(index: number) {
-    if (this.cocheras[index].deshabilitada === 1) {
-      this.cocheras[index].deshabilitada = 0;
+  asociarEstacionamientosConCocheras() {
+    this.cocheras = this.cocheras.map(cochera => {
+      const estacionamiento = this.estacionamientos.find(e => e.idCochera === cochera.id)
+      return {...cochera, estacionamiento}
+    });
+    console.log(this.cocheras)
+  }
+
+  ultimoNumero = this.cocheras[this.cocheras.length-1]?.id || 0;
+  //ultimoNumero = this.cocheras.length === 0 ? 0 : this.cocheras[this.cocheras.length-1].numero;
+  
+  async agregarCochera(){
+    const cochera = {"descripcion" : "Agregada por WebApi"};
+    const res = await fetch('http://localhost:4000/cocheras',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization:'Bearer '+this.authService.usuario?.token
+      },
+      body: JSON.stringify(cochera)
+    })
+    if(res.status !== 200) {
+      console.log("Error en la creacion de una nueva cochera")
     } else {
-      this.cocheras[index].deshabilitada = 1;
+      console.log("Creacion de cochera exitosa")
+    };
+  }
+
+  async borrarFila(index:number){
+    const res = await fetch(`http://localhost:4000/cocheras/${index}`,{
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization:'Bearer '+this.authService.usuario?.token
+      }
+    })
+    if (res.status !== 200) {
+      console.log('Error en la eliminacion de la cochera')
+    } else {
+      console.log('Cochera eliminada con exito')
+      this.loadData()
     }
   }
 
-  confirmDeleteCochera(index: number) {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "Esta cochera será eliminada permanentemente.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, borrar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.borrarCochera(index);
-        Swal.fire('¡Eliminado!', 'La cochera ha sido eliminada exitosamente.', 'success');
-      }
-    });
+  deshabilitarCochera(index:number){
+    this.cocheras[index].deshabilitada = 1;
   }
 
-  borrarCochera(index: number) {
-    this.cocheras.splice(index, 1); 
+  habilitarCochera(index:number){
+    this.cocheras[index].deshabilitada = 0;
   }
-
-  confirmLogout(event: Event) {
-
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "¡No podrás revertir esta acción!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, cerrar sesión',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: '¡Cerrando sesión!',
-          text: 'Has cerrado sesión exitosamente.',
-          icon: 'success'
-        }).then(() => {
-          this.router.navigate(['/login']);
-        });
-      }
-    });
-  }
+  async abrirEstacionamiento(patente: string, idUsuarioIngreso: string, idCochera: number) {
+    const body = {patente, idUsuarioIngreso, idCochera};
+    const res = await fetch('http://localhost:4000/estacionamientos/abrir',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization:'Bearer '+ localStorage.getItem("authToken")
+      },
+      body: JSON.stringify(body)
+    })
+    if(res.status !== 200) {
+      console.log("Error en abrir estacionamiento")
+    } else {
+      console.log("Creacion de estacionamiento exitoso")
+      this.loadData()
+    };
+  }  
+  
 }

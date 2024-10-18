@@ -1,16 +1,30 @@
-<main >
-    <h1>Regístrate</h1>
-    <form class="formregistro">
-        <p>Usuario</p>
-        <input type="text" id="username" placeholder="Nombre de Usuario" required>
-        <p>Email</p>
-        <input type="email" id="email" placeholder="Correo Electrónico" required>
-        <p>Contraseña</p>
-        <input type="password" id="password" placeholder="Contraseña" required>
-        <p>Confirmar Contraseña</p>
-        <input type="password" id="confirm-password" placeholder="Confirmar Contraseña" required>
-        <button type="submit">Registrarse</button>
-    </form>
-    <p id="textbot">¿Ya tienes una cuenta? <a [routerLink]="['/login']">Inicia sesión aquí</a></p>
-</main>
+<main>
+    <h1>Estacionamiento <br>[Nombre]</h1>
+    <div class="menumargen">
+        <div>
+            <form #registerForm="ngForm" (ngSubmit)="register(registerForm)" class="formregistro">
+                <p>Nombre</p>
+                <input type="text" name="nombre" ngModel placeholder="Ingresar nombre" required>
+                
+                <p>Apellido</p>
+                <input type="text" name="apellido" ngModel placeholder="Ingresar apellido" required>
+                
+                <p>Usuario</p>
+                <input type="text" name="username" ngModel placeholder="Ingresar usuario" required>
+                
+                <p>Contraseña</p>
+                <input type="password" name="password" ngModel placeholder="Ingresar contraseña" required>
 
+
+                <div class="Botones">
+                    <button [disabled]="registerForm.invalid" class="botonresaltado" type="submit">Registrarse</button>
+                    
+                    <!-- Mostrar error si el registro falla -->
+                    <p *ngIf="errorRegister">Error en el registro</p>
+
+                    <a [routerLink]="['/login']" id="textbot"> Iniciar Sesión</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

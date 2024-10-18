@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
 import { Login, ResLogin } from '../interfaces/login';
 import { NgForm } from '@angular/forms';
+import { Register, ResRegister } from '../interfaces/register';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataAuthService {
+
+
 
   constructor() { }
 
@@ -29,5 +32,18 @@ export class DataAuthService {
       }
       return resJson;
     }
+    async register(registerData: Register) {
+      const res = await fetch('http://localhost:4000/register', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(registerData)
+      });
+    
+      if (res.status !== 201) return;
+      return res;
+    }
+    
   
 }

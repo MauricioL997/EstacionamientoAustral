@@ -13,54 +13,51 @@ import { soloLogeadoGuard } from './guards/solo-logeado.guard';
 export const routes: Routes = [
     {
         path: '',
-        component: DashboardContainerComponent,
-        canActivate: [soloLogeadoGuard],
-        children:[
-                {
-                    path:"EstadoCochera",
-                    component:EstadoCocherasComponent
-                },
-                {
-                    path:"reporte",
-                    component:ReporteComponent
-                },
-                {
-                    path:"precios",
-                    component:PreciosComponent
-                },
-        ]
-
+        redirectTo: 'login',
+        pathMatch: 'full'
     },
     {
-        path: "login",
+        path: 'login',
         component: LoginComponent
     },
     {
-        path: "register",
+        path: 'register',
         component: RegisterComponent
     },
-
     {
-        path:"cerrarcochera",
-        component:CerrarCocheraComponent
+        path: 'cerrarcochera',
+        component: CerrarCocheraComponent
     },
     {
-        path:"eliminarcochera",
-        component:EliminarCocheraComponent
+        path: 'eliminarcochera',
+        component: EliminarCocheraComponent
     },
-    
-//    {
-//        path: '',
-//        redirectTo:"login",
-//        pathMatch:"full"
-//    },
+    {
+        path: '',
+        component: DashboardContainerComponent,
+        canActivate: [soloLogeadoGuard],
+        children: [
+            {
+                path: 'EstadoCochera',
+                component: EstadoCocherasComponent
+            },
+            {
+                path: 'reporte',
+                component: ReporteComponent
+            },
+            {
+                path: 'precios',
+                component: PreciosComponent
+            },
+        ]
+    },
     {
         path: 'notfound',
         component: NotfoundComponent
     },
     {
         path: '**',
-        redirectTo:"notfound",
-        pathMatch:"full"
+        redirectTo: 'notfound',
+        pathMatch: 'full'
     },
 ];
