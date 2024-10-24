@@ -7,6 +7,12 @@
                 <a [routerLink]="['/reporte']" routerLinkActive="link-activo" >Reportes</a>
                 <a [routerLink]="['/precios']" routerLinkActive="link-activo" >Precios</a>
             }
+            <div class="usuario">
+                <a>Usuario</a>
+                <div class="dropdown">
+                    <button (click)="cerrarSesion()">Cerrar sesión</button>
+                </div>
+            </div>
         </nav>
     </header>
     <router-outlet/>

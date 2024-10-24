@@ -14,7 +14,7 @@
                             <td>{{cochera.id}}</td>
                             <td>
                                 @if (!cochera.estacionamiento?.horaEgreso && cochera.estacionamiento?.horaIngreso) {
-                                    <button (click)="cerrarEstacionamiento(cochera)">
+                                    <button (click)="cerrarEstacionamiento(cochera.id)">
                                         {{ cochera.estacionamiento?.patente }}
                                     </button>
                                 } @else if (cochera.estacionamiento?.horaEgreso) {
@@ -29,30 +29,27 @@
                             </td>
                             <td>{{cochera.descripcion}}</td>
                             <td>@if (!cochera.deshabilitada) {
-                                <button (click)="deshabilitarCochera($index)">Modificar</button>
+                                <button (click)="preguntarDeshabilitarCochera(cochera.id)">Modificar</button>
                             }@else {
-                                <button (click)="habilitarCochera($index)">Modificar</button>
+                                <button (click)="preguntarHabilitarCochera(cochera.id)">Modificar</button>
                             }
-                            @if (isAdmin) {
-                                <button (click)="borrarFila($index)">Borrar</button>
+                            @if (esAdmin) {
+                                <button (click)="preguntarBorrarCochera(cochera.id)">Borrar</button>
                             }
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-            @if (isAdmin) { <div class="botonagregar">
-                <button (click)="agregarCochera()">Agregar Cochera</button>
+            @if (esAdmin) { <div class="botonagregar">
+                <button (click)="preguntarAgregarCochera()">Agregar Cochera</button>
             </div>}
 
         }
         @else {
             <div class="botonagregar">
-                <button (click)="agregarCochera()">Agregar Cochera</button>
+                <button (click)="preguntarAgregarCochera()">Agregar Cochera</button>
             </div>
         }
-        <div class="logout">
-            <a (click)="confirmLogout($event)">Cerrar Sesión</a>
-        </div>
     </ng-container>
 </div> 

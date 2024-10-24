@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { DataEstacionamientosService } from '../../services/data.estacionamiento.service';
+
 
 @Component({
   selector: 'app-reporte',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './reporte.component.html',
   styleUrl: './reporte.component.scss'
 })
 export class ReporteComponent {
-  titulo:string = "Parking App";
-  isAdmin: boolean = false;
-  toggleAdmin() {
-    this.isAdmin = !this.isAdmin;}
+  dataEstacionamientoService = inject(DataEstacionamientosService)
 
 }

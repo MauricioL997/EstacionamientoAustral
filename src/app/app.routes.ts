@@ -39,6 +39,7 @@ export const routes: Routes = [
                 path: 'reporte',
                 component: ReporteComponent,
                 canActivate: [soloAdminGuard]
+
             },
             {
                 path: 'precios',
