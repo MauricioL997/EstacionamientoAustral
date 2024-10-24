@@ -3,7 +3,7 @@
         <h1>PARKING APP</h1>
         <nav>
             <a [routerLink]="['/EstadoCochera']" routerLinkActive="link-activo">Estado Cocheras</a>
-            @if(isAdmin){
+            @if(esAdmin){
                 <a [routerLink]="['/reporte']" routerLinkActive="link-activo" >Reportes</a>
                 <a [routerLink]="['/precios']" routerLinkActive="link-activo" >Precios</a>
             }

@@ -142,7 +142,7 @@ export class DataCocherasService {
   }  
   async cerrarEstacionamiento(patente: string, idUsuarioEgreso: string) {
     const body = {patente, idUsuarioEgreso};
-    const res = await fetch(environment.API_URL+'cerrar',{
+    const res = await fetch(environment.API_URL+'estacionamientos/cerrar',{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

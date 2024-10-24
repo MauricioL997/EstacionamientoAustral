@@ -12,7 +12,7 @@ import { DataAuthService } from '../../services/data-auth.service';
   styleUrl: './dashboard-container.component.scss'
 })
 export class DashboardContainerComponent {
-  isAdmin = true;
+  esAdmin = true;
   authService = inject(DataAuthService);
   router = inject(Router);
 
