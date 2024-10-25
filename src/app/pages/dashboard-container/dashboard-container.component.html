@@ -1,19 +1,19 @@
 <div class="bobycochera">
     <header>
-        <h1>PARKING APP</h1>
-        <nav>
-            <a [routerLink]="['/EstadoCochera']" routerLinkActive="link-activo">Estado Cocheras</a>
-            @if(esAdmin){
-                <a [routerLink]="['/reporte']" routerLinkActive="link-activo" >Reportes</a>
-                <a [routerLink]="['/precios']" routerLinkActive="link-activo" >Precios</a>
-            }
-            <div class="usuario">
-                <a>Usuario</a>
-                <div class="dropdown">
-                    <button (click)="cerrarSesion()">Cerrar sesión</button>
-                </div>
-            </div>
-        </nav>
+    <h1>PARKING APP</h1>
+    <nav>
+        <a [routerLink]="['/EstadoCochera']" routerLinkActive="link-activo">Estado Cocheras</a>
+        @if(esAdmin){
+        <a [routerLink]="['/reporte']" routerLinkActive="link-activo">Reportes</a>
+        <a [routerLink]="['/precios']" routerLinkActive="link-activo">Precios</a>
+        }
+        <div class="usuario" (click)="toggleMenu()">
+        <img src="/eladmin.jpeg" alt="Usuario" class="user-icon" />
+        <div class="dropdown" [class.active]="menuActivo">
+            <button (click)="cerrarSesion()">Cerrar sesión</button>
+        </div>
+        </div>
+    </nav>
     </header>
-    <router-outlet/>
+    <router-outlet></router-outlet>
 </div>

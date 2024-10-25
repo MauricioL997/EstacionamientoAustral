@@ -13,11 +13,15 @@ import { DataAuthService } from '../../services/data-auth.service';
 })
 export class DashboardContainerComponent {
   esAdmin = true;
+  menuActivo = false;
   authService = inject(DataAuthService);
   router = inject(Router);
 
   cerrarSesion(){
     this.authService.clearToken();
     this.router.navigate(['/login']);
+  }
+  toggleMenu() {
+    this.menuActivo = !this.menuActivo; // Mostrar u ocultar el menú
   }
 }

@@ -43,7 +43,8 @@ export const routes: Routes = [
             },
             {
                 path: 'precios',
-                component: PreciosComponent
+                component: PreciosComponent,
+                canActivate: [soloAdminGuard]
             },
         ]
     },

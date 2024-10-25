@@ -83,7 +83,7 @@ export class DataAuthService {
   }
 
   clearToken() {
-    localStorage.removeItem("authToken")
+    localStorage.removeItem("authToken");
+    this.usuario = undefined; // Limpiar el estado del usuario también
   }
-  
 }
