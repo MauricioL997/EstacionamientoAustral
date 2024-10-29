@@ -16,6 +16,7 @@ export class DataEstacionamientosService {
   async getUltimasTransacciones(cantidad = 5) {
     if (!this.dataCocheraService.estacionamientos || this.dataCocheraService.estacionamientos.length === 0) {
       console.error("No hay estacionamientos disponibles");
+      return;
     }
 
     const transaccionesFiltradas = this.dataCocheraService.estacionamientos.filter(estacionamiento => 

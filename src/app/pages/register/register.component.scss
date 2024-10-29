@@ -4,26 +4,27 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh; // Ocupa toda la altura de la pantalla
+    overflow: hidden; // Elimina el scroll
     background-size: cover;
     background-position: center;
     padding: 15px;
-    overflow: hidden;
     box-sizing: border-box;
+    margin: 0; // Asegúrate de que no haya márgenes externos
 
     h1 {
         color: #fff;
         font-size: 3rem;
         text-align: center;
         margin-bottom: 2rem;
-        background-color: rgba(0, 0, 0, 0.6); // Fondo semi-transparente
+        background-color: rgba(0, 0, 0, 0.6);
         padding: 10px 20px;
         border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); // Sombra alrededor del título
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     }
 
     .menumargen {
-        background-color: rgba(0, 0, 0, 0.7); // Fondo oscuro semi-transparente
+        background-color: rgba(0, 0, 0, 0.7);
         padding: 3rem;
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -59,25 +60,28 @@ main {
 
             .Botones {
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
 
                 button,
                 #textbot {
-                    padding: 0.8rem 2rem;
+                    padding: 0.8rem;
                     border-radius: 5px;
                     font-size: 1rem;
                     text-align: center;
                     cursor: pointer;
                     transition: all 0.3s ease;
-                    display: inline-block;
-                    min-width: 130px;
+                    width: 100%;
+                    font-weight: bold;
                 }
 
+                /* Botón de registro */
                 button {
                     background-color: #007bff;
                     border: none;
-                    color: white;
+                    color: #FFFFFF;
+                    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 
                     &:hover {
                         background-color: #0056b3;
@@ -86,25 +90,32 @@ main {
                     &:disabled {
                         background-color: #6c757d;
                         cursor: not-allowed;
+                        color: #FFFFFF;
                     }
                 }
 
+                /* Enlace de iniciar sesión */
                 #textbot {
-                    color: #ffffff;
+                    color: #FFFFFF;
                     background-color: #007bff;
                     text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
 
                     &:hover {
                         background-color: #0056b3;
                         color: white;
                     }
                 }
-            }
 
-            p[ngIf="errorRegister"] {
-                color: red;
-                font-size: 0.9rem;
-                margin-top: 10px;
+                /* Mensaje de error */
+                .errorRegister {
+                    color: red;
+                    font-size: 0.9rem;
+                    margin-top: 10px;
+                    text-align: center;
+                }
             }
         }
     }

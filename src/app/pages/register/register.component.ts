@@ -23,7 +23,7 @@ export class RegisterComponent {
     const registerData: Register = { username, nombre, apellido, password };
     const res = await this.authService.register(registerData);
   
-    if (res?.statusText === "Created") {
+    if (res) {
       this.router.navigate(['/login']).then(() => {
         Swal.fire("Registro exitoso", "", "success");
       });

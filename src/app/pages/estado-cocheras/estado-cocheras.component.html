@@ -1,55 +1,68 @@
-<div class="bobycochera">    
+<div class="bobycochera">
     <ng-container>
         @if (dataCocherasService.cocheras.length !== 0) {
             <table>
                 <thead>
-                    <th>Nº</th>
-                    <th>Disponibilidad</th>
-                    <th>Ingreso</th>
-                    <th>Acciones</th>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Disponibilidad</th>
+                        <th>Ingreso</th>
+                        <th>Acciones</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @for(cochera of dataCocherasService.cocheras; track $index) {
                         <tr>
-                            <td>{{cochera.id}}</td>
+                            <td>{{ cochera.id }}</td>
                             <td>
+                                <!-- Si hay hora de ingreso pero no hora de egreso, mostrar patente y opción de cerrar -->
                                 @if (!cochera.estacionamiento?.horaEgreso && cochera.estacionamiento?.horaIngreso) {
                                     <button (click)="cerrarEstacionamiento(cochera)">
                                         {{ cochera.estacionamiento?.patente }}
                                     </button>
-                                } @else if (cochera.estacionamiento?.horaEgreso) {
-                                    <button (click)="abrirEstacionamiento(cochera.id)">
+                                } 
+                                <!-- Si hay hora de egreso, mostrar como deshabilitada -->
+                                @else if (cochera.deshabilitada) {
+                                    <button (click)="preguntarHabilitarCochera(cochera.id)">
                                         deshabilitada
                                     </button>
-                                } @else {
+                                } 
+                                <!-- Si está disponible, permite abrir el estacionamiento ingresando patente -->
+                                @else {
                                     <button (click)="abrirEstacionamiento(cochera.id)">
                                         Disponible
                                     </button>
                                 }
                             </td>
-                            <td>{{cochera.descripcion}}</td>
-                            <td>@if (!cochera.deshabilitada) {
-                                <button (click)="preguntarDeshabilitarCochera(cochera.id)">Modificar</button>
-                            }@else {
-                                <button (click)="preguntarHabilitarCochera(cochera.id)">Modificar</button>
-                            }
-                            @if (esAdmin) {
-                                <button (click)="preguntarBorrarCochera(cochera.id)">Borrar</button>
-                            }
+                            <td>{{ cochera.descripcion }}</td>
+                            <td>
+                                <!-- Botón de modificar, alterna entre habilitar y deshabilitar según el estado -->
+                                @if (!cochera.deshabilitada) {
+                                    <button (click)="preguntarDeshabilitarCochera(cochera.id)">Modificar</button>
+                                }@else {
+                                    <button (click)="preguntarHabilitarCochera(cochera.id)">Modificar</button>
+                                }
+                                <!-- Botón de borrar solo visible para administradores -->
+                                @if (esAdmin) {
+                                    <button (click)="preguntarBorrarCochera(cochera.id)">Borrar</button>
+                                }
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-            @if (esAdmin) { <div class="botonagregar">
-                <button (click)="preguntarAgregarCochera()">Agregar Cochera</button>
-            </div>}
-
+            <!-- Botón de agregar cochera solo visible para administradores -->
+            @if (esAdmin) { 
+                <div class="botonagregar">
+                    <button (click)="preguntarAgregarCochera()">Agregar Cochera</button>
+                </div>
+            }
         }
         @else {
+            <!-- Mensaje de agregar cochera si no hay ninguna disponible -->
             <div class="botonagregar">
                 <button (click)="preguntarAgregarCochera()">Agregar Cochera</button>
             </div>
         }
     </ng-container>
-</div> 
+</div>

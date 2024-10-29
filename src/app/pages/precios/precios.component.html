@@ -9,8 +9,8 @@
     </thead>
     <tbody>
         <tr *ngFor="let precio of precios">
-        <td>{{ precio.tiempo }}</td>
-        <td>{{ precio.costo }}</td>
+        <td>{{ precio.descripcion }}</td>
+        <td>{{ precio.valor }}</td>
         <td>
             <button (click)="editarPrecio(precio)">✏️</button>
             <button (click)="borrarPrecio(precio)">🗑️</button>

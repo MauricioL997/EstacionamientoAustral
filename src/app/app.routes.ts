@@ -38,13 +38,13 @@ export const routes: Routes = [
             {
                 path: 'reporte',
                 component: ReporteComponent,
-                canActivate: [soloAdminGuard]
+                //canActivate: [soloAdminGuard]
 
             },
             {
                 path: 'precios',
                 component: PreciosComponent,
-                canActivate: [soloAdminGuard]
+                //canActivate: [soloAdminGuard]
             },
         ]
     },

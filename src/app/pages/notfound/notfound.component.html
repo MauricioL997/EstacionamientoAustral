@@ -1,7 +1,9 @@
 <main>
-    <img src="/homer.jpeg" alt="" id="imagenerror">
-    <div>
-        <h1> pagina que intentas solicitar no se encuentra en servidor (ERROR 404)</h1>
+    <div class="image-container">
+        <img src="../../../../public/homer.jpeg" alt="404 Error" id="imagenerror">
     </div>
-    <p>Presiona<a [routerLink]="['/login']"> aqui </a> para volver al inicio</p>
+    <div class="text-container">
+        <h1>La página que intentas solicitar no se encuentra en el servidor (ERROR 404)</h1>
+        <p>Presiona <a [routerLink]="['/login']">aquí</a> para volver al inicio</p>
+    </div>
 </main>

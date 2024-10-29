@@ -1,72 +1,103 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Precio } from '../interfaces/precios';
-
+import { DataAuthService } from './data-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataPreciosService {
-  apiUrl = environment.API_URL + 'precios';
+  private apiUrl = `${environment.API_URL}Tarifa`;
 
-  constructor() { }
+  constructor(private authService: DataAuthService) {}
 
-  // Obtener todos los precios
-  async getPrecios(): Promise<Precio[]> {
-    const res = await fetch(this.apiUrl, {
+  getPrecios(): Promise<Precio[]> {
+    return fetch(this.apiUrl, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.authService.getToken()}`
       }
+    })
+    .then(res => {
+      if (!res.ok) {
+        return res.text().then(text => {
+          console.error("Error al obtener los precios:", text);
+          throw new Error('Error al obtener los precios');
+        });
+      }
+      return res.json();
+    })
+    .catch(error => {
+      console.error('Error en la solicitud GET:', error);
+      throw error;
     });
-
-    if (!res.ok) {
-      throw new Error('Error al obtener los precios');
-    }
-    return await res.json();
   }
 
-  // Actualizar un precio existente
-  async updatePrecio(precio: Precio): Promise<void> {
-    const res = await fetch(`${this.apiUrl}/${precio.id}`, {
+  updatePrecio(precio: Precio): Promise<any> {
+    return fetch(`${this.apiUrl}/${precio.id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.authService.getToken()}`
       },
       body: JSON.stringify(precio)
+    })
+    .then(res => {
+      if (!res.ok) {
+        return res.text().then(text => {
+          console.error("Error al actualizar el precio:", text);
+          throw new Error('Error al actualizar el precio');
+        });
+      }
+      return res.json();
+    })
+    .catch(error => {
+      console.error('Error en la solicitud PUT:', error);
+      throw error;
     });
-
-    if (!res.ok) {
-      throw new Error('Error al actualizar el precio');
-    }
   }
 
-  // Borrar un precio
-  async deletePrecio(id: number): Promise<void> {
-    const res = await fetch(`${this.apiUrl}/${id}`, {
+  deletePrecio(id: number): Promise<any> {
+    return fetch(`${this.apiUrl}/${id}`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.authService.getToken()}`
       }
+    })
+    .then(res => {
+      if (!res.ok) {
+        return res.text().then(text => {
+          console.error("Error al borrar el precio:", text);
+          throw new Error('Error al borrar el precio');
+        });
+      }
+      return res.json();
+    })
+    .catch(error => {
+      console.error('Error en la solicitud DELETE:', error);
+      throw error;
     });
-
-    if (!res.ok) {
-      throw new Error('Error al borrar el precio');
-    }
   }
 
-  // Crear un nuevo precio
   async createPrecio(precio: Precio): Promise<void> {
+    console.log("Objeto precio antes de enviar:", precio); // <-- Para verificar el contenido
     const res = await fetch(this.apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(precio)
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.authService.getToken()}`
+        },
+        body: JSON.stringify(precio)
     });
 
     if (!res.ok) {
-      throw new Error('Error al crear el precio');
+        const errorText = await res.text();
+        console.error("Error al crear el precio:", errorText);
+        throw new Error('Error al crear el precio');
     }
-  }
+    console.log("Precio creado con éxito");
+}
+
 }
